@@ -1,15 +1,14 @@
 
-public class Prestador {
+public class Prestador implements ID {
 	private String nome;
-	private static int id;
 	private Agenda agenda;
+	private static int qtd;
+	private int id;
 	
-	
-	
-	public Prestador(String nome, Agenda agenda) {
+	public Prestador(String nome) {
 		super();
 		this.nome = nome;
-		this.agenda = agenda;
+		id = qtd++;
 	}
 	public String getNome() {
 		return nome;
@@ -17,14 +16,18 @@ public class Prestador {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public static int getId() {
-		return id;
+	public int getId() {
+		return this.id;
 	}
 	
 	public Agenda getAgenda() {
 		return agenda;
 	}
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
+	
+	public boolean marcarCompromisso(){
+		return false;
+		
 	}
+	
+	
 }

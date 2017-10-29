@@ -1,13 +1,16 @@
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class Empresa {
 	private String nome;
 	private String CNPJ;
-	private ArrayList<Prestador> prestadores;
+	private ArrayList<ID> prestadores;
 	private Agenda agenda;
-	private ArrayList<Cliente> clientes;
+	private ArrayList<ID> clientes;
 
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -20,10 +23,10 @@ public class Empresa {
 	public void setCNPJ(String cNPJ) {
 		CNPJ = cNPJ;
 	}
-	public ArrayList<Prestador> getPrestadores() {
+	public ArrayList<ID> getPrestadores() {
 		return prestadores;
 	}
-	public void setPrestadores(ArrayList<Prestador> prestadores) {
+	public void setPrestadores(ArrayList<ID> prestadores) {
 		this.prestadores = prestadores;
 	}
 	public Agenda getAgenda() {
@@ -32,10 +35,51 @@ public class Empresa {
 	public void setAgenda(Agenda agenda) {
 		this.agenda = agenda;
 	}
-	public ArrayList<Cliente> getClientes() {
+	public ArrayList<ID> getClientes() {
 		return clientes;
 	}
-	public void setClientes(ArrayList<Cliente> clientes) {
+	
+	public void setClientes(ArrayList<ID> clientes) {
 		this.clientes = clientes;
 	}
+
+
+	//Polimorfismo parametrico usando interface ID
+	public ID consulta(int id, List<ID> lista) throws ExcecaoID{
+		Iterator<ID> it = lista.iterator();
+		while(it.hasNext()){
+			ID atual = it.next();
+			if( atual.getId() == id)
+				return atual;
+		}
+			
+		throw new ExcecaoID(it.getClass());
 	}
+
+	public boolean agendarServico(int clienteId, int prestadorId, Serviço sv, Date dataInicio) throws ExcecaoID{
+		Cliente cliente = null;
+		Prestador prestador = null;
+		try{
+			cliente = (Cliente) consulta(clienteId, clientes);			
+		}
+		catch(ExcecaoID e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+
+		try{
+			prestador = (Prestador) consulta(prestadorId, prestadores);
+		}
+		catch(ExcecaoID e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+		prestador.marcarCompromisso();
+		
+		
+		return false;
+
+	}
+
+}
