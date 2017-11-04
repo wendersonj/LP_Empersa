@@ -16,8 +16,10 @@ public class Servico {
 
 	// talvez precise adicionar uma exceção aqui para duração menor ou igual a zero
 	public void setDuracao(int duracao) {
-		if(duracao < 1) this.duracao = 1;
-		else this.duracao = duracao;
+		if(duracao < 1) 
+			this.duracao = 1;
+		else 
+			this.duracao = duracao;
 	}
 	
 	public String getNome() {

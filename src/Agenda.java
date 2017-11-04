@@ -11,13 +11,19 @@ public class Agenda {
 		setServiço(serviço);
 	}
 
+	public Agenda(LocalDate date, Cliente cliente, Servico serviço) {
+		setdata(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+		setCliente(cliente);
+		setServiço(serviço);
+	}
+	
 	public LocalDate getData() {
 		return data;
 	}
 
 	// tavez seja necessário tratar uma data inválida
 	public void setdata(int dia, int mes, int ano) {
-		this.data = LocalDate.of(dia, mes, ano);
+		this.data = LocalDate.of(ano, mes, dia);
 	}
 	
 	public Cliente getCliente() {

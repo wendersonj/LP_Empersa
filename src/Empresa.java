@@ -9,10 +9,10 @@ public class Empresa extends Pessoa {
 		this.setCNPJ(CNPJ);
 	}
 
-	private ArrayList<Prestador> prestadores;
-	private ArrayList<Cliente> clientes;
-	private ArrayList<Servico> listaServicos;
-	private ArrayList<ArrayList<Agenda>> listaAgendas = null;
+	private ArrayList<Prestador> prestadores = new ArrayList<>();
+	private ArrayList<Cliente> clientes = new ArrayList<>();
+	private ArrayList<Servico> listaServicos = new ArrayList<>();
+	private ArrayList<ArrayList<Agenda>> listaAgendas = new ArrayList<>(); //Lista todos os COMPROMISSOS de TODOS os PRESTADORES
 
 	//--inicio Métodos EMPRESA
 	public ArrayList<Prestador> getPrestadores() {
@@ -28,7 +28,7 @@ public class Empresa extends Pessoa {
 	public ArrayList<ArrayList<Agenda>> getListaAgendas() {
 		return this.listaAgendas;
 	}	
-	
+
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
@@ -48,10 +48,14 @@ public class Empresa extends Pessoa {
 	public void cadastra(Pessoa cadastro) {
 		//	caso não retorne uma pessoa, pode cadastrar.
 		if(consultaPessoa(cadastro.getCpf(), cadastro) == null) {
-			if(cadastro instanceof Prestador)
+			if(cadastro instanceof Prestador){
 				prestadores.add(new Prestador(cadastro.getNome(), cadastro.getCpf()));
-			else
+				//prestadores.add((Prestador) cadastro);
+			}
+			else{
+				//clientes.add((Cliente) cadastro);
 				clientes.add(new Cliente(cadastro.getNome(), cadastro.getCpf()));
+			}
 		}
 		else {
 			System.out.println("Pessoa já cadastrada");
@@ -69,12 +73,16 @@ public class Empresa extends Pessoa {
 	// consulta pessoa cliente ou prestador
 	Pessoa consultaPessoa(String cpf, Pessoa quem) {
 		if(quem instanceof Cliente){
+			if(clientes == null)
+				return null;
 			for(Cliente c : clientes) {
 				if(c.getCpf().equals(cpf))
 					return c;
 			}
 		}
 		if(quem instanceof Prestador){
+			if(prestadores == null)
+				return null;
 			for(Prestador p : prestadores) {
 				if(p.getCpf().equals(cpf))
 					return p;
@@ -125,9 +133,8 @@ public class Empresa extends Pessoa {
 	public boolean agendarServico(String CpfCliente, String nomeServico, LocalDate dataInicio, Prestador prest) 
 			throws ExcecaoAgendar, ExcecaoPessoa, ExcecaoServico{
 
-		Cliente c = null;
+		Cliente c = new Cliente(null, CpfCliente);
 		Servico sv = null;
-		Prestador p = null;
 
 		// testa se o cliente existe
 		c = (Cliente) consultaPessoa(CpfCliente, c);
@@ -145,10 +152,10 @@ public class Empresa extends Pessoa {
 
 		// testa se o prestador existe
 
-		prest = (Prestador) consultaPessoa(prest.getCpf(), p);			
+		prest = (Prestador) consultaPessoa(prest.getCpf(), prest);			
 		if(prest == null)
 			throw new ExcecaoPessoa("Prestador Inexistente !");
-		
+
 
 		//Chegou aqui - registrar serviço no prestador para o cliente passado
 		if(prest.marcarCompromisso(dataInicio, c, sv))
@@ -156,15 +163,25 @@ public class Empresa extends Pessoa {
 		else{
 			return false;	//fail
 		}
-	
+
 	}
 
 
-	public void atualizaAgendaGeral(Prestador p){
-			this.listaAgendas.add(p.getListaCompromissos());
- 	}
+	private void atualizaAgendaGeral(Prestador p){
+		this.listaAgendas.add(p.getListaCompromissos());
+	}
 
-
+	public void imprimeTodosCompromisso(){
+		for(int i = 0; i < this.listaAgendas.size(); i ++){
+			System.out.println("\n");
+			for(int j = 0; j < this.listaAgendas.get(i).size(); j ++ ){
+				System.out.println("Cliente: " + listaAgendas.get(i).get(j).getCliente().getNome());
+				System.out.println("Data: " + listaAgendas.get(i).get(j).getData().getDayOfMonth() +
+						"/"+listaAgendas.get(i).get(j).getData().getMonthValue() + "/"+ listaAgendas.get(i).get(j).getData().getYear());
+				System.out.println("Serviço: " + listaAgendas.get(i).get(j).getServiço().getNome());
+			}
+		}
+	}
 
 
 
