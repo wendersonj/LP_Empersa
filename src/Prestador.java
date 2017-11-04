@@ -1,26 +1,11 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Prestador implements ID {
-	private String nome;
+public class Prestador extends Pessoa{
 	private ArrayList<Agenda> compromissos = null;
-	private static int ID_PRESTADOR = 0;
-	private int matricula;
 	
-	public Prestador(String nome) {
-		super();
-		this.nome = nome;
-		this.matricula = ++ID_PRESTADOR;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public int getId() {
-		return ID_PRESTADOR;
+	public Prestador(String nome, String cpf) {
+		super(nome, cpf);
 	}
 		
 	public boolean marcarCompromisso(){
@@ -32,10 +17,6 @@ public class Prestador implements ID {
 	}
 	public void addCompromissos(ArrayList<Agenda> compromissos) {
 		this.compromissos = compromissos;
-	}
-	
-	public int getMatricula() {
-		return matricula;
 	}
 	
 	

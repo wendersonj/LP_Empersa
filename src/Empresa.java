@@ -1,93 +1,103 @@
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
-public class Empresa {
-	private String nome;
+public class Empresa extends Pessoa {
 	private String CNPJ;
-	private ArrayList<ID> prestadores;
-	private ArrayList<ID> clientes;
+
+	public Empresa(String nome, String CNPJ) {
+		super(nome, null);
+		this.setCNPJ(CNPJ);
+	}
+	
+	private ArrayList<Prestador> prestadores;
+	private ArrayList<Cliente> clientes;
 	private ArrayList<Servico> listaServicos;
 	private Agenda agenda;
-	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getCNPJ() {
-		return CNPJ;
-	}
-	public void setCNPJ(String cNPJ) {
-		CNPJ = cNPJ;
-	}
-	public ArrayList<ID> getPrestadores() {
+
+	//--inicio Métodos EMPRESA
+	public ArrayList<Prestador> getPrestadores() {
 		return prestadores;
 	}
-	
-	//CRUD Prestadores
-	//Add
-	//Remove
-	//Atualiza
-	//Lê
-	
-	public void setPrestadores(ArrayList<ID> prestadores) {
+
+	public void setPrestadores(ArrayList<Prestador> prestadores) {
 		this.prestadores = prestadores;
 	}
-	
+
 	public Agenda getAgenda() {
 		return agenda;
 	}
 	public void setAgenda(Agenda agenda) {
 		this.agenda = agenda;
 	}
-	public ArrayList<ID> getClientes() {
+	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
-	
-	public void setClientes(ArrayList<ID> clientes) {
+
+	public void setClientes(ArrayList<Cliente> clientes) {
 		this.clientes = clientes;
 	}
+	//--FIM MÉTODOS EMPRESA
 
 
-	//Polimorfismo parametrico usando interface ID
-	public ID consulta(int id, List<ID> lista) throws ExcecaoID{
-		Iterator<ID> it = lista.iterator();
-		while(it.hasNext()){
-			ID atual = it.next();
-			if( atual.getId() == id)
-				return atual;
-		}	
-		throw new ExcecaoID(it.getClass());
+	//CRUD
+	//Add
+	//Remove
+	//Atualiza
+	//Lê
+
+	public void Cadastra(Pessoa cadastro) {
+		//	caso não retorne uma pessoa, pode cadastrar.
+		if(consultaPessoa(cadastro.getCpf(), cadastro) == null) {
+			if(cadastro instanceof Prestador)
+				prestadores.add(new Prestador(cadastro.getNome(), cadastro.getCpf()));
+			else
+				clientes.add(new Cliente(cadastro.getNome(), cadastro.getCpf()));
+		}
+		else {
+			System.out.println("Pessoa já cadastrada");
+		}
 	}
 
-	public boolean agendarServico(int clienteId, int prestadorId, Serviço sv, Date dataInicio) throws ExcecaoID{
-		Cliente cliente = null;
-		Prestador prestador = null;
-		
-		try{
-			cliente = (Cliente) consulta(clienteId, clientes);			
+	// consulta pessoa cliente ou prestador
+	Pessoa consultaPessoa(String cpf, Pessoa quem) {
+		if(quem instanceof Cliente){
+			for(Cliente c : clientes) {
+				if(c.getCpf().equals(cpf))
+					return c;
+			}
 		}
-		catch(ExcecaoID e){
-			System.out.println(e.getMessage());
-			return false;
+		if(quem instanceof Prestador){
+			for(Prestador p : prestadores) {
+				if(p.getCpf().equals(cpf))
+					return p;
+			}
 		}
 
-		try{
-			prestador = (Prestador) consulta(prestadorId, prestadores);
-		}
-		catch(ExcecaoID e){
-			System.out.println(e.getMessage());
-			return false;
-		}
-		
-		prestador.marcarCompromisso();
-		
-		
-		return false;
-
+		return null;
 	}
+
+
+	// consulta servico
+	public Servico consultaServico(String nome) {
+		for(Servico i : listaServicos) {
+			if(i.getNome().equalsIgnoreCase(nome))
+				return i;
+		}
+		return null;
+	}
+
+	public String getCNPJ() {
+		return CNPJ;
+	}
+
+	public void setCNPJ(String cNPJ) {
+		CNPJ = cNPJ;
+	}
+		
+	@Override
+	public String getCpf() {
+		return getCNPJ();
+	}
+
+
 
 }
