@@ -2,7 +2,7 @@
 public class Servico {
 	private String nome;
 	private String descricao;
-	private int duracao;
+	private int duracao; //dias
 	
 	public Servico(String nome, String descricao, int duracao) {
 		setNome(nome);

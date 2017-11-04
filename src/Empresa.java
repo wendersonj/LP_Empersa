@@ -12,7 +12,7 @@ public class Empresa extends Pessoa {
 	private ArrayList<Prestador> prestadores;
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Servico> listaServicos;
-	private Agenda agenda;
+	private ArrayList<ArrayList<Agenda>> listaAgendas = null;
 
 	//--inicio Métodos EMPRESA
 	public ArrayList<Prestador> getPrestadores() {
@@ -21,14 +21,14 @@ public class Empresa extends Pessoa {
 
 	public void setPrestadores(ArrayList<Prestador> prestadores) {
 		this.prestadores = prestadores;
+		for(Prestador i : this.prestadores)
+			atualizaAgendaGeral(i);
 	}
 
-	public Agenda getAgenda() {
-		return agenda;
-	}
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
-	}
+	public ArrayList<ArrayList<Agenda>> getListaAgendas() {
+		return this.listaAgendas;
+	}	
+	
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
@@ -122,56 +122,47 @@ public class Empresa extends Pessoa {
 
 
 
-	public boolean agendarServico(String CpfCliente, String nomeServico, LocalDate dataInicio, Prestador prest) throws ExcecaoAgendar{
+	public boolean agendarServico(String CpfCliente, String nomeServico, LocalDate dataInicio, Prestador prest) 
+			throws ExcecaoAgendar, ExcecaoPessoa, ExcecaoServico{
+
 		Cliente c = null;
 		Servico sv = null;
 		Prestador p = null;
 
 		// testa se o cliente existe
-		try{
-			
-			c = (Cliente) consultaPessoa(CpfCliente, c);
-			if(c == null)
-				throw new ExcecaoPessoa();
-		}
-		catch(ExcecaoPessoa e){
-			System.out.println(e.getMessage());
-			return false;
-		}
+		c = (Cliente) consultaPessoa(CpfCliente, c);
+		if(c == null)
+			throw new ExcecaoPessoa("Cliente Inexistente !"); 
+		//quem chama o método agendarServico deve tratar com um try-catch para pegar a Exceção.
+		// Logo, como vai ser exibida a mensagem de erro passada não é problema da classe e sim de quem usa o método
+
 
 		// testa se o serviço existe
-		try{
-			sv = consultaServico(nomeServico);
-			if(sv == null)
-				throw new ExcecaoServico();
-		}
-		//modificar a excecao
-		catch(ExcecaoServico e){
-			System.out.println(e.getMessage());
-			return false;
-		}
+		sv = consultaServico(nomeServico);
+		if(sv == null)
+			throw new ExcecaoServico();
+
 
 		// testa se o prestador existe
-		try{		
-			prest = (Prestador) consultaPessoa(prest.getCpf(), p);			
-			if(prest == null)
-				throw new ExcecaoPessoa();
-		}
-		catch(ExcecaoPessoa e)	{
-			System.out.println(e.getMessage());
-			return false;
-		}
-		
-		
-		
-		
-		
-		
-		return false;
 
+		prest = (Prestador) consultaPessoa(prest.getCpf(), p);			
+		if(prest == null)
+			throw new ExcecaoPessoa("Prestador Inexistente !");
+		
+
+		//Chegou aqui - registrar serviço no prestador para o cliente passado
+		if(prest.marcarCompromisso(dataInicio, c, sv))
+			return true; 	//sucesso
+		else{
+			return false;	//fail
+		}
+	
 	}
 
 
+	public void atualizaAgendaGeral(Prestador p){
+			this.listaAgendas.add(p.getListaCompromissos());
+ 	}
 
 
 
@@ -195,7 +186,6 @@ public class Empresa extends Pessoa {
 
 
 
-	
 	//	MÉTODOS DA EMPRESA
 
 	public String getCNPJ() {
@@ -211,6 +201,10 @@ public class Empresa extends Pessoa {
 		return getCNPJ();
 	}
 
+	@Override
+	public void setCpf(String cpf) {
+		setCNPJ(cpf);
+	}
 
 
 }

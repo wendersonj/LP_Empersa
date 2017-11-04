@@ -8,14 +8,10 @@ public class Prestador extends Pessoa{
 		super(nome, cpf);
 	}
 		
-	public boolean marcarCompromisso(){
-		return false;
-	}
-	
-	public ArrayList<Agenda> getCompromissos() {
+	public ArrayList<Agenda> getListaCompromissos() {
 		return compromissos;
 	}
-	public void addCompromissos(ArrayList<Agenda> compromissos) {
+	public void addListaCompromissos(ArrayList<Agenda> compromissos) {
 		this.compromissos = compromissos;
 	}
 	
@@ -23,7 +19,7 @@ public class Prestador extends Pessoa{
 	
 	//ALTERAÇÕES ISABELA
 	// se tiver adicionado uma exceção ao criar data para data inválida, talvez precis adicionar um try catch aqui
-		public boolean addAgenda(LocalDate data, Cliente cliente, Servico servico) {
+		public boolean marcarCompromisso(LocalDate data, Cliente cliente, Servico servico) {
 			if(consultaAgenda(data, servico.getDuracao()) == null) {
 				this.compromissos.add(new Agenda(data.getDayOfMonth(), data.getMonthValue(), data.getYear(), cliente, servico));
 				return true;
@@ -44,7 +40,8 @@ public class Prestador extends Pessoa{
 		public Agenda consultaAgenda(LocalDate dataInicio, int duracao){
 			while(duracao > 0) {
 				for(int i = 0; i < compromissos.size(); i++) {
-					if(dataInicio.equals(compromissos.get(i).getData())) return compromissos.get(i);
+					if(dataInicio.equals(compromissos.get(i).getData())) 
+						return compromissos.get(i);
 				}
 				dataInicio.plusDays(1);
 				duracao--;
