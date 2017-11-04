@@ -84,7 +84,6 @@ public class Empresa extends Pessoa {
 		return null;
 	}
 
-
 	// consulta servico
 	public Servico consultaServico(String nome) {
 		for(Servico i : listaServicos) {
@@ -123,6 +122,54 @@ public class Empresa extends Pessoa {
 
 
 
+	public boolean agendarServico(String CpfCliente, String nomeServico, LocalDate dataInicio, Prestador prest) throws ExcecaoAgendar{
+		Cliente c = null;
+		Servico sv = null;
+		Prestador p = null;
+
+		// testa se o cliente existe
+		try{
+			
+			c = (Cliente) consultaPessoa(CpfCliente, c);
+			if(c == null)
+				throw new ExcecaoPessoa();
+		}
+		catch(ExcecaoPessoa e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+
+		// testa se o serviço existe
+		try{
+			sv = consultaServico(nomeServico);
+			if(sv == null)
+				throw new ExcecaoServico();
+		}
+		//modificar a excecao
+		catch(ExcecaoServico e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+
+		// testa se o prestador existe
+		try{		
+			prest = (Prestador) consultaPessoa(prest.getCpf(), p);			
+			if(prest == null)
+				throw new ExcecaoPessoa();
+		}
+		catch(ExcecaoPessoa e)	{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+		
+		
+		
+		
+		
+		return false;
+
+	}
 
 
 
@@ -132,6 +179,24 @@ public class Empresa extends Pessoa {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	//	MÉTODOS DA EMPRESA
 
 	public String getCNPJ() {
 		return CNPJ;
