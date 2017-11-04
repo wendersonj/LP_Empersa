@@ -27,7 +27,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
               <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
+              <folding>
+                <element signature="e#690#691#0" expanded="true" />
+                <element signature="e#727#728#0" expanded="true" />
+                <marker date="1509794095950" expanded="false" signature="757:762" ph=" { " />
+                <marker date="1509794095950" expanded="false" signature="776:779" ph=" }" />
+                <marker date="1509794095950" expanded="false" signature="817:822" ph=" { " />
+                <marker date="1509794095950" expanded="false" signature="843:846" ph=" }" />
+                <marker date="1509794095950" expanded="false" signature="882:887" ph=" { " />
+                <marker date="1509794095950" expanded="false" signature="903:906" ph=" }" />
+                <marker date="1509794095950" expanded="false" signature="957:962" ph=" { " />
+                <marker date="1509794095950" expanded="false" signature="987:990" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -55,8 +66,8 @@
       <file leaf-file-name="Prestador.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Prestador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="51">
+              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -67,16 +78,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="1" column="12" lean-forward="false" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-              <folding>
-                <element signature="e#242#243#0" expanded="true" />
-                <element signature="e#260#261#0" expanded="true" />
-                <element signature="e#296#297#0" expanded="true" />
-                <element signature="e#319#320#0" expanded="true" />
-                <element signature="e#351#352#0" expanded="true" />
-                <element signature="e#374#375#0" expanded="true" />
-                <element signature="e#420#421#0" expanded="true" />
-                <element signature="e#453#454#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -85,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/src/Agenda.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -129,6 +131,7 @@
     <option name="width" value="1346" />
     <option name="height" value="728" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -276,16 +279,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1509792106631</updated>
-      <workItem from="1509792120866" duration="1056000" />
+      <workItem from="1509792120866" duration="1658000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1056000" />
+    <option name="totallyTimeSpent" value="1658000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -331,7 +333,7 @@
     <entry file="file://$PROJECT_DIR$/src/Agenda.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -354,8 +356,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Prestador.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="51">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -364,16 +366,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="12" lean-forward="false" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-          <folding>
-            <element signature="e#242#243#0" expanded="true" />
-            <element signature="e#260#261#0" expanded="true" />
-            <element signature="e#296#297#0" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#351#352#0" expanded="true" />
-            <element signature="e#374#375#0" expanded="true" />
-            <element signature="e#420#421#0" expanded="true" />
-            <element signature="e#453#454#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -397,7 +390,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#690#691#0" expanded="true" />
+            <element signature="e#727#728#0" expanded="true" />
+            <marker date="1509794095950" expanded="false" signature="757:762" ph=" { " />
+            <marker date="1509794095950" expanded="false" signature="776:779" ph=" }" />
+            <marker date="1509794095950" expanded="false" signature="817:822" ph=" { " />
+            <marker date="1509794095950" expanded="false" signature="843:846" ph=" }" />
+            <marker date="1509794095950" expanded="false" signature="882:887" ph=" { " />
+            <marker date="1509794095950" expanded="false" signature="903:906" ph=" }" />
+            <marker date="1509794095950" expanded="false" signature="957:962" ph=" { " />
+            <marker date="1509794095950" expanded="false" signature="987:990" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>

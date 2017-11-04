@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Empresa extends Pessoa {
@@ -7,7 +8,7 @@ public class Empresa extends Pessoa {
 		super(nome, null);
 		this.setCNPJ(CNPJ);
 	}
-	
+
 	private ArrayList<Prestador> prestadores;
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Servico> listaServicos;
@@ -44,7 +45,7 @@ public class Empresa extends Pessoa {
 	//Atualiza
 	//Lê
 
-	public void Cadastra(Pessoa cadastro) {
+	public void cadastra(Pessoa cadastro) {
 		//	caso não retorne uma pessoa, pode cadastrar.
 		if(consultaPessoa(cadastro.getCpf(), cadastro) == null) {
 			if(cadastro instanceof Prestador)
@@ -55,6 +56,14 @@ public class Empresa extends Pessoa {
 		else {
 			System.out.println("Pessoa já cadastrada");
 		}
+	}
+
+	public void remove(int id){
+
+	}
+
+	public void remove(String cpf){
+
 	}
 
 	// consulta pessoa cliente ou prestador
@@ -85,6 +94,45 @@ public class Empresa extends Pessoa {
 		return null;
 	}
 
+
+	// Adiciona um serviço na lista de serviços que podem ser prestados
+	// necessita de tratamento de exceção
+	public void cadastraServico(String nome, String descricao, int duracao) {
+		if(consultaServico(nome) == null) 
+			listaServicos.add(new Servico(nome, descricao, duracao));
+		else 
+			System.out.println("Serviço já existente!");
+	}
+
+	// Retorna a lista dos prestadores que prestam um determinado serviço e que possuem agenda livre
+	public ArrayList<Prestador> buscarPrestadoresServico(String nomeServico, LocalDate dataInicio){
+		ArrayList<Prestador> listaPrestadores = new ArrayList<Prestador>();
+		Servico servico = consultaServico(nomeServico);
+
+		// criar tratamento de erro para serviço inexistente
+		if(servico == null) 
+			return null;
+
+		// criar tratamento de erro para quando não tem prestadores disponíveis
+		for(Prestador i : prestadores) {
+			if(i.consultaAgenda(dataInicio, servico.getDuracao()) == null) 
+				listaPrestadores.add(i);
+		}
+		return listaPrestadores;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public String getCNPJ() {
 		return CNPJ;
 	}
@@ -92,7 +140,7 @@ public class Empresa extends Pessoa {
 	public void setCNPJ(String cNPJ) {
 		CNPJ = cNPJ;
 	}
-		
+
 	@Override
 	public String getCpf() {
 		return getCNPJ();
