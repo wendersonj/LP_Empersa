@@ -2,27 +2,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Empresa extends Pessoa {
+	
 	private String CNPJ;
-
-	public Empresa(String nome, String CNPJ) {
-		super(nome, null);
-		this.setCNPJ(CNPJ);
-	}
-
 	private ArrayList<Prestador> prestadores = new ArrayList<>();
 	private ArrayList<Cliente> clientes = new ArrayList<>();
-	private ArrayList<Servico> listaServicos = new ArrayList<>();
-	private ArrayList<ArrayList<Agenda>> listaAgendas = new ArrayList<>(); //Lista todos os COMPROMISSOS de TODOS os PRESTADORES
+	private ArrayList<Servico> servicos = new ArrayList<>();
+	
+	public Empresa(String nome, String CNPJ) {
+		super(nome, null);
+		this.setRegistro(CNPJ);
+	}
 
 	//--inicio Métodos EMPRESA
 	public ArrayList<Prestador> getPrestadores() {
 		return prestadores;
 	}
-
-	public ArrayList<ArrayList<Agenda>> getListaAgendas() {
-		return this.listaAgendas;
-	}	
-
+	
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
@@ -37,12 +32,12 @@ public class Empresa extends Pessoa {
 
 	public void cadastra(Pessoa cadastro) {
 		//	caso não retorne uma pessoa, pode cadastrar.
-		if(consultaPessoa(cadastro.getCpf(), cadastro) == null) {
+		if(consultaPessoa(cadastro.getRegistro(), cadastro) == null) {
 			if(cadastro instanceof Prestador){
-				prestadores.add(new Prestador(cadastro.getNome(), cadastro.getCpf()));
+				prestadores.add(new Prestador(cadastro.getNome(), cadastro.getRegistro()));
 			}
 			else{
-				clientes.add(new Cliente(cadastro.getNome(), cadastro.getCpf()));
+				clientes.add(new Cliente(cadastro.getNome(), cadastro.getRegistro()));
 			}
 		}
 		else {
@@ -60,7 +55,7 @@ public class Empresa extends Pessoa {
 			if(clientes == null)
 				return null;
 			for(Cliente c : clientes) {
-				if(c.getCpf().equals(cpf))
+				if(c.getRegistro().equals(cpf))
 					return c;
 			}
 		}
@@ -68,7 +63,7 @@ public class Empresa extends Pessoa {
 			if(prestadores == null)
 				return null;
 			for(Prestador p : prestadores) {
-				if(p.getCpf().equals(cpf))
+				if(p.getRegistro().equals(cpf))
 					return p;
 			}
 		}
@@ -78,7 +73,7 @@ public class Empresa extends Pessoa {
 
 	// consulta servico
 	public Servico consultaServico(String nome) {
-		for(Servico i : listaServicos) {
+		for(Servico i : servicos) {
 			if(i.getNome().equalsIgnoreCase(nome))
 				return i;
 		}
@@ -90,7 +85,7 @@ public class Empresa extends Pessoa {
 	// necessita de tratamento de exceção
 	public void cadastraServico(String nome, String descricao, int duracao) {
 		if(consultaServico(nome) == null) 
-			listaServicos.add(new Servico(nome, descricao, duracao));
+			servicos.add(new Servico(nome, descricao, duracao));
 		else 
 			System.out.println("Serviço já existente!");
 	}
@@ -125,14 +120,14 @@ public class Empresa extends Pessoa {
 		//quem chama o método agendarServico deve tratar com um try-catch para pegar a Exceção.
 		// Logo, como vai ser exibida a mensagem de erro passada não é problema da classe e sim de quem usa o método
 
-
+		
 		// testa se o serviço existe
 		sv = consultaServico(nomeServico);
 		if(sv == null)
 			throw new ExcecaoServico();
 
 		// testa se o prestador existe
-		prest = (Prestador) consultaPessoa(prest.getCpf(), prest);			
+		prest = (Prestador) consultaPessoa(prest.getRegistro(), prest);			
 		if(prest == null)
 			throw new ExcecaoPessoa("Prestador Inexistente !");
 
@@ -145,23 +140,10 @@ public class Empresa extends Pessoa {
 
 	}
 
-
-	private void atualizaAgendaGeral(Prestador p){
-		this.listaAgendas.add(p.getListaCompromissos());
+	public void imprimeCompromissos(){
+		for(Prestador i : prestadores)
+			System.out.println(i.toString());
 	}
-
-	public void imprimeTodosCompromisso(){
-		for(int i = 0; i < this.listaAgendas.size(); i ++){
-			System.out.println("\n");
-			for(int j = 0; j < this.listaAgendas.get(i).size(); j ++ ){
-				System.out.println("Cliente: " + listaAgendas.get(i).get(j).getCliente().getNome());
-				System.out.println("Data: " + listaAgendas.get(i).get(j).getData().getDayOfMonth() +
-						"/"+listaAgendas.get(i).get(j).getData().getMonthValue() + "/"+ listaAgendas.get(i).get(j).getData().getYear());
-				System.out.println("Serviço: " + listaAgendas.get(i).get(j).getServiço().getNome());
-			}
-		}
-	}
-
 
 
 
@@ -172,24 +154,13 @@ public class Empresa extends Pessoa {
 
 
 	//	MÉTODOS DA EMPRESA
-
-	public String getCNPJ() {
+	@Override
+	public String getRegistro() {
 		return CNPJ;
 	}
-
-	public void setCNPJ(String cNPJ) {
+	@Override
+	public void setRegistro(String cNPJ) {
 		CNPJ = cNPJ;
 	}
-
-	@Override
-	public String getCpf() {
-		return getCNPJ();
-	}
-
-	@Override
-	public void setCpf(String cpf) {
-		setCNPJ(cpf);
-	}
-
 
 }
